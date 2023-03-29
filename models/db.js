@@ -23,7 +23,6 @@ exports.animals = [
         name : "zebra",
         age : "5years"
     },
-    ,
     {
         id : "120",
         type : "carnivorous",

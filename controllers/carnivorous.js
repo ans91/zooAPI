@@ -46,6 +46,9 @@ const getAllCarnivorousAnimal = function (req, res) {
 }
 exports.getAllCarnivorousAnimal = getAllCarnivorousAnimal;
 
+//How is the data being changed in the animals arroay of object permanently by doing this?
+//We expect it not to change permanently 
+
 const editCarnivorousAnimal = function (req, res) {
     let sendRes = {
         error: true,
@@ -77,7 +80,34 @@ const editCarnivorousAnimal = function (req, res) {
 exports.editCarnivorousAnimal = editCarnivorousAnimal;
 
 const deleteCarnivorousAnimal = function (req, res) {
+    let sendRes = {
+        error: true,
+        message: '',
+        data: {}
+    }
+    if (!req.body.id) {
+        sendRes.message = "Id missing";
+        return res.status(400).send(sendRes);
+    }
+    let animal = animals.filter(el => el.id === req.body.id)[0];
 
+    if (animal){
+        if(animal.type !== 'carnivorous'){
+            sendRes.message = "NOT ALLOWED TO EDIT THIS!"
+            return res.status(400).send(sendRes)
+        }
+        for ( i = 0; i < animals.length; i++ )  {
+            if (animals[i].id == req.body.id) {
+                animals.splice(i, 1)
+                sendRes.message = `${animals.id} has been deleted successfully!`
+                sendRes.data = animals
+                return res.status(200).send(sendRes);
+            }
+        }
+    }else{
+        sendRes.message = "No animal available with this id!";
+        return res.status(400).send(sendRes)
+    }
 }
 exports.deleteCarnivorousAnimal = deleteCarnivorousAnimal;
 

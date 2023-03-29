@@ -1,29 +1,18 @@
 const express = require('express');
 const { animals } = require('../models/db');
 const router = express.Router();
+const { addHerbivorousAnimal, getHerbivorousAnimal, editHerbivorousAnimal, deleteHerbivorousAnimal } = require("../controllers/herbivorous")
 
-router.post('/', (req,res) => {
-    //create
-    console.log("Post running");
-     res.end("Post running");
-})
+//create
+router.post('/', (req, res) => { addHerbivorousAnimal(req, res) })
 
-router.get('/', (req,res) => {
-    //read
-    console.log("Get running");
-    res.send(animals);
-})
+//read
+router.get('/', (req, res) => { getHerbivorousAnimal(req, res) })
 
-router.patch('/', (req,res) => {
-    //update
-    console.log("Patch running");
-     res.end();
-})
+//edit/update
+router.patch('/', (req, res) => {editHerbivorousAnimal(req, res) })
 
-router.delete('/', (req,res) => {
-    //delete
-    console.log("Delete running");
-     res.end();
-})
+//delete
+router.delete('/', (req, res) => { deleteHerbivorousAnimal(req, res) })
 
 module.exports = router;
